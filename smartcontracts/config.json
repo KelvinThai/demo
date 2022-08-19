@@ -1,10 +1,11 @@
 {
   "dev": {},
   "bsctest": {
-    "Floppy": "0xDABC447D3d61b514DE0d1cceBa1625eb942D8F1d",
-    "Vault": "0x140A13fe4da9e9F6dc5B712bf10F5F9fE91fd430",
     "Impetus": "0xBfF3cC27180E6425377c55D7bDC069D18Ae7d99d",
-    "ImpetusVault": "0xEE5F4C9bd591EF5E6CA468477f1505745641332C"
+    "ImpetusVault": "0xEE5F4C9bd591EF5E6CA468477f1505745641332C",
+    "impetusCrowdSale": "0x4c4Cd668d5F63624aFEC3cD38b7777c43FbFF1f2",
+    "impetusStaking": "0xE58529FA01dD7F3003f589A3a242166EC435a7C7",
+    "impetusLending": "0x8a27c016677A4eC5dB0FD08924D155308d86c413"
   },
   "main": {},
   "stctest": {

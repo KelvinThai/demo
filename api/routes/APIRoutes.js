@@ -8,7 +8,7 @@ module.exports = function(app) {
   app.post('/api/vauls/post_token',loginApi.post_token);
 
   app.use('/api/logs', apiKeyAuth);
-  app.use('/api/vauls', tokenAuth);
+  //app.use('/api/vauls', tokenAuth);
   app.post('/api/logs/addLogs', logApi.addLogs);
   app.get('/api/vauls/getTicketBalance',vaulApi.getTitketBalance);
   app.get('/api/vauls/getBalance',vaulApi.getBalance);
