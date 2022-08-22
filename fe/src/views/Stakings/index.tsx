@@ -159,7 +159,7 @@ export default function StakingView() {
             </SimpleGrid>
           </TabPanel>
           <TabPanel>
-            <MyLockedStaking />
+            <MyLockedStaking tranHash={txHash} />
           </TabPanel>
         </TabPanels>
       </Tabs>

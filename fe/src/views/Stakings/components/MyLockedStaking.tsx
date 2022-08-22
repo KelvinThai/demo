@@ -22,9 +22,9 @@ import { useAppSelector } from "../../../reduxs/hooks";
 import { IStakerInfo } from "../../../types";
 import { formatDateYYYYMMDDHHMMSS, getToast, numberFormat } from "../../../utils";
 
-export interface IProps {}
+export interface IProps {tranHash?: string}
 
-const MyLockedStaking = () => {
+const MyLockedStaking = ({tranHash}: IProps) => {
   const { walletInfo, web3Provider } = useAppSelector((state) => state.account);
   const [lockedStake, setLockedStake] = React.useState<IStakerInfo[]>([]);
   const [isSuccess, setIsSuccess] = useBoolean();
@@ -42,7 +42,7 @@ const MyLockedStaking = () => {
     } else {
       setLockedStake([]);
     }
-  }, [web3Provider, walletInfo.address]);
+  }, [web3Provider, walletInfo.address, tranHash]);
 
   React.useEffect(() => {
     handleGetStakerInfo();
