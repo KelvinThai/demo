@@ -38,3 +38,14 @@ export interface IPackage {
   bg: string; 
   token : TOKEN;
 }
+
+export interface IStakerInfo {
+  index: number;
+  amount: number;
+  releaseDate: number;
+  isRelease: boolean;
+  rewardDebt: number;
+  termOption: "14" | "30";
+  days: string;
+  isLock: boolean;
+}

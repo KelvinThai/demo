@@ -15,9 +15,11 @@ export default function Header() {
       <HStack display={{base: 'none', lg: 'flex'}}>
       {menus.map((menu) =>  <Link 
                     mx="20px !important"
-                    href={`${menu.url}`} 
+                    href={`${menu.url}`}
                     py="20px"
-                    textDecoration="none" key={menu.name}>
+                    textDecoration="none" 
+                    key={menu.name}
+                  >
                     <Text variant="with-title">{menu.name}</Text>
                 </Link>)}
       </HStack>

@@ -12,3 +12,4 @@ export const getVaultAddress = () => getAddress(SMART_ADDRESS.VAULT);
 export const getCrowdSaleAddress =()=> getAddress(SMART_ADDRESS.CROWD_SALE);
 export const getUsdtAddress =()=> getAddress(SMART_ADDRESS.USDT);
 export const getStakingAddress =()=> getAddress(SMART_ADDRESS.STAKING);
+export const getLendingAddress =()=> getAddress(SMART_ADDRESS.LENDING);
