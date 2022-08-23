@@ -61,19 +61,19 @@ describe("Lending Contract", () => {
     it('Should unlend', async () => {
         await usdt.transfer(alice.address, parseEther(1 * 10 ** 6));
         await usdt.connect(alice).approve(lending.address, usdt.balanceOf(alice.address));
-        await lending.connect(alice).lend(200,30);
+        await lending.connect(alice).lend(25000,30);
         await token.transfer(lending.address,parseEther(1 * 10 ** 6));
 
-        expect(await usdt.balanceOf(lending.address)).equal(parseEther(200));
+        expect(await usdt.balanceOf(lending.address)).equal(parseEther(25000));
         expect(await lending.totalLender()).equal(1);
-        expect(await lending.lendingPools(0)).equal(parseEther(200));
+        expect(await lending.lendingPools(0)).equal(parseEther(25000));
 
         // unlend
         // Time travel to release date: 30 days
         ethers.provider.send("evm_increaseTime", [30*24*60*60]);
         ethers.provider.send("evm_mine",[]);  
         await lending.connect(alice).unLend(0);
-        expect(await usdt.balanceOf(lending.address)).equal(parseEther(200));
+        expect(await usdt.balanceOf(lending.address)).equal(parseEther(25000));
         expect(await lending.totalLender()).equal(0);
         expect(await lending.lendingPools(0)).equal(parseEther(0));
     })
@@ -110,6 +110,13 @@ describe("Lending Contract", () => {
             console.log('lending pool:'+ lendingpool);
             for (let j = 0; j < 7; j++) {
                 const pool = await lending.detailLendingPool(i,j);
+                console.log('Details pool'+ i+'-'+j+': '+pool);
+            }
+        }
+
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 7; j++) {
+                const pool = await lending.tokenAmountOuts(i,j);
                 console.log('Details pool'+ i+'-'+j+': '+pool);
             }
         }

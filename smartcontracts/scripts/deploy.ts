@@ -31,9 +31,14 @@ async function main() {
     // Config.setConfig(network + '.impetusStaking', impetusStaking.address);
 
     const ImpetusLending = await ethers.getContractFactory("ImpetusLending");
-    const impetusLending = await ImpetusLending.deploy('0xBfF3cC27180E6425377c55D7bDC069D18Ae7d99d','0x337610d27c682E347C9cD60BD4b3b107C9d34dDd');
+    const impetusLending = await ImpetusLending.deploy('0xBfF3cC27180E6425377c55D7bDC069D18Ae7d99d','0x6ad024E50F833217Da95F27c21424cb617A74b11');
     console.log('ImpetusLending address: ', impetusLending.address);
     Config.setConfig(network + '.impetusLending', impetusLending.address);
+
+    // const Usdt = await ethers.getContractFactory("USDT");
+    // const usdt = await Usdt.deploy();
+    // console.log('Usdt address: ', usdt.address);
+    // Config.setConfig(network + '.Usdt', usdt.address);
 
     await Config.updateConfig();
 }
