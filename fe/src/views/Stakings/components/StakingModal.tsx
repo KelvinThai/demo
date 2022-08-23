@@ -37,7 +37,7 @@ export default function StakingModal({
 }: IProps) {
   const { web3Provider, walletInfo } = useAppSelector((state) => state.account);
   const availableAmount = walletInfo.iptBalance;
-  const [amount, setAmount] = useState<number>(9778);  
+  const [amount, setAmount] = useState<number>(0);  
   const [isProcessing, processAction] = useBoolean();
   
   const onPercent = (percent: number) => setAmount(percent * availableAmount);
