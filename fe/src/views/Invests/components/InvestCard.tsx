@@ -71,7 +71,7 @@ const InvestCard = ({ pak, rate = 1, isBuying, onClick }: IProps) => {
         />
       </Box>
       <Text my="20px" variant="notoSan" fontSize="24px">
-        BNB PACKAGE 01
+        {pak.name }
       </Text>
       <Button
         disabled
