@@ -44,6 +44,8 @@ contract ImpetusLending is Ownable {
         [0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0]
     ];
+
+    bool public isUnLendBeforeDay=true;
     
     struct LenderInfo {
         uint256 amount;
@@ -61,6 +63,18 @@ contract ImpetusLending is Ownable {
     constructor (ERC20 newToken,ERC20 usdt) {
         lendingToken = newToken;
         usdtToken=usdt;
+    }
+
+    function setUsdt(ERC20 newToken) onlyOwner public{
+        usdtToken=newToken;
+    }
+
+    function setIsUnlend(ERC20 newToken) onlyOwner public{
+        usdtToken=newToken;
+    }
+
+    function setLendingToken(ERC20 newToken) onlyOwner public{
+        lendingToken=newToken;
     }
 
     function getLendingPoolIndex(uint256 termOption) public pure returns (uint256) {
@@ -152,9 +166,9 @@ contract ImpetusLending is Ownable {
         require(lender.amount > 0 , "Lend amount must be greater than zero");
         require(lender.isRelease == false , "Lend has already been released");
 
-        require((lender.releaseDate <= block.timestamp), "You can't unLend before release date");
+        require((lender.releaseDate <= block.timestamp)||isUnLendBeforeDay, "You can't unLend before release date");
 
-        uint256 willPaid =  lender.rewardDebt;
+        uint256 willPaid =  lender.rewardDebt*10**lendingToken.decimals();
 
         require(willPaid <= lendingToken.balanceOf(address(this)), "Insufficient balance");
         
@@ -164,12 +178,12 @@ contract ImpetusLending is Ownable {
         
         totalUnLentAmount += lender.amount;
         uint lendingPoolIndex=getLendingPoolIndex(lender.termOption);
-        uint lendingPackageIndex=getLendingPoolIndex(lender.termOption);
-        
-        lendingPools[getLendingPoolIndex(lender.termOption)] -= lender.amount;
+        uint256 lendingPackageIndex=getLendingPackageIndex(lender.package);
+
+        lendingPools[lendingPoolIndex] -= lender.amount;
 
         totalLender-=1;
-        detailLendingPool[lendingPackageIndex][lendingPoolIndex]-=lender.amount;
+        detailLendingPool[lendingPoolIndex][lendingPackageIndex]-=lender.amount;
 
         emit UnLend(msg.sender,lender.termOption,lender.amount,lender.rewardDebt);
        

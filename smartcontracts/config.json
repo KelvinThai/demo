@@ -5,7 +5,8 @@
     "ImpetusVault": "0xEE5F4C9bd591EF5E6CA468477f1505745641332C",
     "impetusCrowdSale": "0x4c4Cd668d5F63624aFEC3cD38b7777c43FbFF1f2",
     "impetusStaking": "0xE58529FA01dD7F3003f589A3a242166EC435a7C7",
-    "impetusLending": "0x8a27c016677A4eC5dB0FD08924D155308d86c413"
+    "impetusLending": "0x0fA391dE5371A925EAB2c39822f7E9E19CaDC574",
+    "Usdt": "0x6ad024E50F833217Da95F27c21424cb617A74b11"
   },
   "main": {},
   "stctest": {
