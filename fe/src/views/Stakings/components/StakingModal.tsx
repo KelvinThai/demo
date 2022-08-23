@@ -98,7 +98,7 @@ export default function StakingModal({
             >
               {title} {stakeType}
             </Text>
-            <Flex w="full" my="20px">
+            <Flex flexDirection={{base: 'column', lg: 'row'}} w="full" my="20px">
               <Flex
                 flex={1}
                 direction="column"
@@ -106,6 +106,7 @@ export default function StakingModal({
                 bg="rgba(255,255,255, 0.03)"
                 borderRadius="16px"
                 border="1px solid rgba(255,255,255, 0.1)"
+                mt="10px"
               >
                 <HStack
                   w="full"
@@ -158,7 +159,7 @@ export default function StakingModal({
                   <Text variant="dmSan">{totalInterest} IPT</Text>
                 </HStack>
               </Flex>
-              <Flex flex={1.5} px="20px" direction="column">
+              <Flex flex={1.5}  mt="10px" px="20px" direction="column">
                 <Flex justifyContent="space-between">
                   <Text color="#ccc" fontSize="12px">
                     Stake amount
