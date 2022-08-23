@@ -11,9 +11,12 @@ import React from "react";
 import { depositWithdrawAction } from "../../reduxs/accounts/account.actions";
 import { useAppDispatch, useAppSelector } from "../../reduxs/hooks";
 import { IVaultModel, TOKEN } from "../../types";
-import { getToast } from "../../utils";
+import { convertNumberTextInput, getToast, numberFormat } from "../../utils";
 import InputGroup from "./components/InputGroup";
 import SuccessModal from "../../components/SuccessModal";
+import { NUMBER_PATTERN } from "../../configs/constants";
+
+const MIN_AMOUNT = 2000;
 
 export default function ConvertTicket() {
   const dispatch = useAppDispatch();
@@ -35,12 +38,11 @@ export default function ConvertTicket() {
     setModel(revertModel);
   };
 
-  const onValueChange = (val: string | number) => {
-    const v = parseInt(`${val}`);
+  const onValueChange = (val: string) => {
+    const v = convertNumberTextInput(val);    
     const newModel: IVaultModel = {from: {...model.from, value: v}, to: {...model.to, value: v}};
     setModel(newModel);
   }
-
 
   const validate = () => {
     let mess = '';
@@ -82,7 +84,13 @@ export default function ConvertTicket() {
         <Text variant="notoSan" fontSize={{base: '24px', lg: "38px"}}>
           Convert Ticket
         </Text>
-        <InputGroup type="number" item={model.from} value={model.from.value} onChange={(e) => onValueChange(e.target.value)} />
+        <InputGroup
+          type="text" 
+          item={model.from} 
+          value={numberFormat(model.from.value)} 
+          pattern={NUMBER_PATTERN}
+          onChange={(e) => onValueChange(e.target.value)}
+         />
         <Box
           bg="rgba(255,255,255, 0.3)"
           borderRadius="full"
@@ -93,7 +101,8 @@ export default function ConvertTicket() {
         </Box>
         <InputGroup
           item={model.to}
-          value={model.to.value}
+          value={numberFormat(model.to.value)}
+          type="text"
           isReadOnly
           isDisabled
         />
@@ -102,7 +111,7 @@ export default function ConvertTicket() {
           w="full"
           py="30px !important"
           onClick={handleConvert}
-          disabled={convert.isLoading || !walletInfo.address || !model.from.value}
+          disabled={convert.isLoading || !walletInfo.address || !model.from.value || model.from.value < MIN_AMOUNT}
         >
           {convert.isLoading ? <Spinner color="color.white" /> : "Convert"}
         </Button>

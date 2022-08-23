@@ -27,9 +27,9 @@ export interface AccountState {
 
 const initialState: AccountState = {
   walletInfo: {
-    iptBalance: '',
+    iptBalance: 0,
     address: '',
-    bnbBalance: '',  
+    bnbBalance: 0,  
     bnbRate: 0,
     usdtRate: 0,  
   },
@@ -78,7 +78,6 @@ export const accountReducer = createReducer(initialState, (builder) => {
     state.buyIco = {...state.buyIco, isProcessing: true, has: '', key: arg.key};
   });
   builder.addCase(buyICOAction.rejected, (state, {error}) => {
-    console.log(error)
     state.buyIco= {...state.buyIco, isProcessing: false, errMsg: error.message || DEFAULT_MES};
   });
   builder.addCase(buyICOAction.fulfilled, (state, {payload}) => {

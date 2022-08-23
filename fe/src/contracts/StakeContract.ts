@@ -1,6 +1,7 @@
 import { TransactionResponse } from "@ethersproject/abstract-provider";
 import { BigNumber, ethers } from "ethers";
-import { getRPC } from "../utils";
+import { IStakerInfo } from "../types";
+import { getDays, getDaysFromCurrent, getRPC, isAfter, parseBalance } from "../utils";
 import { BaseInterface } from "./interfaces";
 import { getStakingAbi } from "./utils/getAbis";
 import { getStakingAddress } from "./utils/getAddress";
@@ -90,9 +91,34 @@ export default class StakeContract extends BaseInterface {
     const tx: TransactionResponse = await this._contract.twoWeekStake(amountToEth, this._option);
     return this._handleTransactionResponse(tx);
   }
+  
   oneMonthStake = async(amount: number) => {
     const amountToEth = ethers.utils.parseEther(`${amount}`).toString();
     const tx: TransactionResponse = await this._contract.oneMonthStake(amountToEth, this._option);
+    return this._handleTransactionResponse(tx);
+  }
+ 
+  getStakerInfo = async(address: string): Promise<IStakerInfo[]> =>  {
+    const res: IStakerInfo[] = await this._contract['getStakerInfo(address)'](address);
+    const results: IStakerInfo[] = [];
+    for (let i = 0; i < res.length; i++) {
+      results.push({
+        index: i,
+        amount: parseBalance(res[i].amount),
+        isRelease: res[i].isRelease,
+        releaseDate: res[i].releaseDate,
+        rewardDebt: parseBalance(res[i].rewardDebt),
+        termOption: res[i].termOption,
+        days: `${getDays(res[i].releaseDate)} days`,
+        isLock: isAfter(res[i].releaseDate),
+      })
+      
+    }
+    return results;
+  }
+
+  onWithdraw = async(index: number) => {
+    const tx  = await this._contract.unStake(index);
     return this._handleTransactionResponse(tx);
   }
 }

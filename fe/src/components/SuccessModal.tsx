@@ -9,7 +9,7 @@ import {
   Flex,
   ModalCloseButton,
 } from "@chakra-ui/react";
-import { showSortAddress, showTransactionHash } from "../utils";
+import { getBscScanUrl, showSortAddress, showTransactionHash } from "../utils";
 
 interface IProps extends Omit<ModalProps, "children"> {
   hash?: string;
@@ -19,7 +19,7 @@ interface IProps extends Omit<ModalProps, "children"> {
 export default function SuccessModal({ hash, title = 'CONVERT SUCCESS', ...props }: IProps) {
   const onNavigation = () => {
     if (window) {
-      window.open(`https://testnet.bscscan.com/tx/${hash}`, '_blank');
+      window.open(`${getBscScanUrl()}${hash}`, '_blank');
     }
   };
 

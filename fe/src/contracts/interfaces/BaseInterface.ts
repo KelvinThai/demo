@@ -16,7 +16,7 @@ export default class BaseInterface {
     this._provider = provider;
     this._contractAddress = address;
     this._abis = abi;
-    this._option = { gasLimit: 3000000,  gasPrice: this._provider.getGasPrice() };
+    this._option = { gasLimit: 3000000 };
     this._contract = new ethers.Contract(address, abi, provider.getSigner());
   }
 
@@ -25,7 +25,7 @@ export default class BaseInterface {
       const recept = await tx.wait();
       return recept.transactionHash;
     } catch(er: any) {
-      throw new Error(er.reason);
+      throw new Error(er?.reason || `${er}`);
     }
   }
 

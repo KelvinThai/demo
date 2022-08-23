@@ -1,4 +1,5 @@
 import { ComponentStyleConfig, extendTheme, ThemeConfig } from "@chakra-ui/react"
+import { StepsStyleConfig as Steps } from 'chakra-ui-steps';
 import type {GlobalStyleProps } from "@chakra-ui/theme-tools"
 import { fonts } from "../configs/constants"
 
@@ -84,6 +85,7 @@ const components = {
   Button,
   Text,  
   Input, 
+  Steps,
 }
 
 const theme = extendTheme({

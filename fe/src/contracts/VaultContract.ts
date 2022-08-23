@@ -9,9 +9,9 @@ class VaultContract extends BaseInterface {
       super(provider, getVaultAddress(), getVaultAbi())
   }
 
-  async deposit(amount: number) {
+  async deposit(amount: number) {   
     const amountToEth = ethers.utils.parseEther(`${amount}`);
-    const tx: TransactionResponse = await this._contract.deposit(amountToEth, this._option);
+    const tx: TransactionResponse = await this._contract.deposit(amountToEth);
     return this._handleTransactionResponse(tx);
   }
 
