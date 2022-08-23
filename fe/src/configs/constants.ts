@@ -1,5 +1,6 @@
 import { IPackage, TOKEN } from "../types";
 
+export const NUMBER_PATTERN = '/^[0-9]*\.?[0-9]*$/';
 export const  IPT_PRICE = 0.2;
 
 export const fonts = {
@@ -19,6 +20,7 @@ export const menus = [
   { name: "Invest", url: "/invest" },
   { name: "Deposit/Withdraw", url: "deposit-withdraw" },
   { name: "Staking", url: "/staking" },
+  { name: "Lending", url: "/lending" },
 ];
 
 export const packages: IPackage[] = [
@@ -71,3 +73,4 @@ export const packages: IPackage[] = [
     token: TOKEN.USDT,
   }
 ]
+

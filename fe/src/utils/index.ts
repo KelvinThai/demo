@@ -6,6 +6,12 @@ const DATE_TIME_FORMAT_ONE = 'DD/MM/YYYY HH:mm';
 
 export * from './getEnv';
 
+export const convertNumberTextInput = (str?: string) => {
+  if (!str) return 0;
+  const v = str.split(',').join('');
+  return v ? parseFloat(v) : 0;
+}
+
 export const showSortAddress = (address: string): string => {
   return `${address?.substr(0, 4)}...${address?.substr(
       address.length - 4,
@@ -53,6 +59,14 @@ export function getDaysFromCurrent(dateNum: number): string {
   if (m > 0) return `${m} minutes`;
   if (s > 0) return `${s} seconds`;
   return '0';
+}
+
+export const getDays = (dateNum: number) => {
+  const today  = new Date();
+  const toDate = new Date(dateNum * 1000);
+  const diffTime = Math.abs(toDate.valueOf() - today.valueOf());
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+  return diffDays;
 }
 
 export function formatDateYYYYMMDDHHMMSS(date: number) {

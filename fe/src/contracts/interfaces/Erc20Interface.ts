@@ -30,7 +30,7 @@ class Erc20 extends BaseInterface{
 
   async approve(address: string, amount: number) {
     const wei = ethers.utils.parseUnits(amount.toString());
-    await this._contract.approve(address, wei);
+    await this._contract.approve(address, wei, this._option);
   }
 }
 

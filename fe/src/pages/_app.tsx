@@ -12,11 +12,11 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <Provider store={store}>
-    <ChakraProvider theme={theme}>
-      <MainLayout>
-        <AnyComponent {...pageProps} />
-      </MainLayout>
-    </ChakraProvider>
+      <ChakraProvider theme={theme}>
+        <MainLayout>
+          <AnyComponent {...pageProps} />
+        </MainLayout>
+      </ChakraProvider>
     </Provider>
   );
 }

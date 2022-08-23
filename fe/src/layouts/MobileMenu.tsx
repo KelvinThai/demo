@@ -6,11 +6,11 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
-  DrawerBody,
-  Link,
+  DrawerBody, 
   Text,
   useMediaQuery,
 } from "@chakra-ui/react";
+import Link from "next/link";
 import React from "react";
 import {ConnectWallet, WalletInformation} from '../components'
 import { menus } from "../configs/constants";
@@ -53,8 +53,10 @@ const MobileMenu = () => {
           <DrawerBody pt="20px">
             {menus.map((m) => (
               <Flex key={m.name}>
-                <Link href={`${m.url}`} py="20px" textDecoration="none">
-                  <Text variant="with-sub-title">{m.name}</Text>
+                <Link href={`${m.url}`}>
+                  <a>
+                  <Text  py="20px" variant="with-sub-title">{m.name}</Text>
+                  </a>
                 </Link>
               </Flex>
             ))}

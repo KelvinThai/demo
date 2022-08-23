@@ -15,10 +15,13 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import { useMemo, useState } from "react";
+import { NUMBER_PATTERN } from "../../../configs/constants";
 import IPTContract from "../../../contracts/IPTContract";
 import StakeContract from "../../../contracts/StakeContract";
 import { useAppSelector } from "../../../reduxs/hooks";
 import { endDate, formatDate, getToast, numberFormat } from "../../../utils";
+
+const MIN_AMOUNT =  2000;
 
 interface IProps extends Omit<ModalProps, "children"> {
   title?: string;
@@ -33,8 +36,8 @@ export default function StakingModal({
   ...props
 }: IProps) {
   const { web3Provider, walletInfo } = useAppSelector((state) => state.account);
-  const availableAmount = parseInt(walletInfo.iptBalance);
-  const [amount, setAmount] = useState<number>(0);  
+  const availableAmount = walletInfo.iptBalance;
+  const [amount, setAmount] = useState<number>(9778);  
   const [isProcessing, processAction] = useBoolean();
   
   const onPercent = (percent: number) => setAmount(percent * availableAmount);
@@ -172,7 +175,11 @@ export default function StakingModal({
                     fontSize="25px"
                     value={numberFormat(amount)}
                     type="text"
-                    onChange={(e) => setAmount(parseInt(e.target.value))}
+                    pattern={NUMBER_PATTERN}
+                    onChange={(e) => {
+                      const v = e.target.value.split(',').join('');
+                      setAmount( v ? parseFloat(v) : 0);
+                    }}
                   />
                   <Text
                     variant="notoSan"
@@ -236,7 +243,7 @@ export default function StakingModal({
                   w="full"
                   variant="primary"
                   mt="20px"
-                  disabled={!walletInfo.address || amount <= 0 || isProcessing}                  
+                  disabled={!walletInfo.address || amount <= 0 || isProcessing || amount < MIN_AMOUNT}                  
                   onClick={onConfirm}
                 >
                  {isProcessing ? <Spinner /> : 'CONFIRM'} 
