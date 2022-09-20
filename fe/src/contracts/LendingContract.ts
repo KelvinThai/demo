@@ -82,7 +82,7 @@ export default class LendingContract extends BaseInterface {
     const packageIndex = this.getPackageIndex(packageAmount);
     const daysIndex = this.getDaysIndex(days); 
     this.validateIndex(packageIndex, daysIndex); 
-    const tx = await this._contract.lend(packageAmount, days);
+    const tx = await this._contract.lend(packageAmount, days, this._option);
     return this._handleTransactionResponse(tx);
   }
 
