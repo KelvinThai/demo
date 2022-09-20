@@ -48,6 +48,7 @@ contract ImpetusAuction is IERC721Receiver, Ownable {
 
         bool completed;
         bool active;
+        uint256 auctionId;
     }
 
     AuctionInfo[] private auction;
@@ -77,7 +78,8 @@ contract ImpetusAuction is IERC721Receiver, Ownable {
             _endTime,           // endTime
 
             false,              // completed
-            true                // active
+            true,                // active
+            auction.length      // auctionID
         );
 
         auction.push(_auction);
@@ -150,7 +152,6 @@ contract ImpetusAuction is IERC721Receiver, Ownable {
         if (auction[_auctionId].lastBidder != address(0)) {
             token.transfer(auction[_auctionId].lastBidder, auction[_auctionId].lastBid);
         }
-
         auction[_auctionId].completed = true;
         auction[_auctionId].active = false;
     }
@@ -178,6 +179,7 @@ contract ImpetusAuction is IERC721Receiver, Ownable {
         }
         return results;
     }
+
 
     modifier onlyAuctioneer(uint256 _auctionId) {
         require((msg.sender == auction[_auctionId].auctioneer||msg.sender==owner()), "Only auctioneer or owner can perform this action");

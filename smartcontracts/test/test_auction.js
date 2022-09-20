@@ -50,16 +50,40 @@ describe("Floppy Contract", () => {
 
     })
 
-    it('Should creat auction', async () => {
+    it('Should create auction', async () => {
         await token.transfer(alice.address, parseEther(1 * 10 ** 6));
+        await token.transfer(bob.address, parseEther(1 * 10 ** 6));
+
         await token.connect(alice).approve(auction.address, token.balanceOf(alice.address));
         await hero.mint(alice.address, 2);
+        await hero.mint(alice.address, 2);
+
         await hero.connect(alice).approve(auction.address,1);
+        await hero.connect(alice).approve(auction.address,2);
+
         let n=new Date();
-        await auction.connect(alice).createAuction(1,parseEther(100),n.getTime()+(1000*10),n.getTime()+(1000*1000));
+
+        let starttime=Math.round((n.getTime()+10000)/1000);
+        let endtime=Math.round(n.getTime()+(1000*1000)/1000);
+
+        console.log(starttime);
+        await auction.connect(alice).createAuction(1,parseEther(100),starttime,endtime);
+        await auction.connect(alice).createAuction(2,parseEther(100),starttime,endtime);
+
         
         let auctionlist=await auction.getAuctionByStatus(true);
         console.log({auctionlist});
+        ethers.provider.send("evm_increaseTime", [30*24*60*60]);//10s
+        ethers.provider.send("evm_mine",[]);  
+
+        await token.connect(bob).approve(auction.address, parseEther(1 * 10 ** 6));
+        let auctionid=auctionlist[0].auctionId;
+        await auction.connect(bob).joinAuction(auctionid,parseEther(101));
+        console.log(auctionid);
+
+
+        //let auctionlistAfter=await auction.getAuctionByStatus(true);
+        //console.log({auctionlistAfter});
 
         //expect(await token.balanceOf(auction.address)).equal(parseEther(500 * 10 ** 3));
 
