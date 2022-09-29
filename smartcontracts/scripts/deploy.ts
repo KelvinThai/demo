@@ -30,15 +30,20 @@ async function main() {
     // console.log('ImpetusCrowdSale address: ', impetusStaking.address);
     // Config.setConfig(network + '.impetusStaking', impetusStaking.address);
 
-    const ImpetusLending = await ethers.getContractFactory("ImpetusLending");
-    const impetusLending = await ImpetusLending.deploy('0xBfF3cC27180E6425377c55D7bDC069D18Ae7d99d','0x6ad024E50F833217Da95F27c21424cb617A74b11');
-    console.log('ImpetusLending address: ', impetusLending.address);
-    Config.setConfig(network + '.impetusLending', impetusLending.address);
+    // const ImpetusLending = await ethers.getContractFactory("ImpetusLending");
+    // const impetusLending = await ImpetusLending.deploy('0xBfF3cC27180E6425377c55D7bDC069D18Ae7d99d','0x6ad024E50F833217Da95F27c21424cb617A74b11');
+    // console.log('ImpetusLending address: ', impetusLending.address);
+    // Config.setConfig(network + '.impetusLending', impetusLending.address);
 
     // const Usdt = await ethers.getContractFactory("USDT");
     // const usdt = await Usdt.deploy();
     // console.log('Usdt address: ', usdt.address);
     // Config.setConfig(network + '.Usdt', usdt.address);
+
+    const Auction = await ethers.getContractFactory("ImpetusAuction");
+    const auction = await Auction.deploy('0xBfF3cC27180E6425377c55D7bDC069D18Ae7d99d','0xeFe14Edd8adb233784A3124F39B31367d7066E61');
+    console.log('Auction address: ', auction.address);
+    Config.setConfig(network + '.Auction', auction.address);
 
     await Config.updateConfig();
 }

@@ -1,8 +1,8 @@
 import type { NextPage } from 'next'
-import MarketView from '../views/Markets'
+import InvestView from '../views/Invests'
 
 const Home: NextPage = () => {
-  return <MarketView />
+  return <InvestView />
 }
 
 export default Home
