@@ -7,7 +7,7 @@ import StakeContract, { IStakeInfo } from "../../contracts/StakeContract";
 import UsdtContract from "../../contracts/UsdtContract";
 import VaultContract from "../../contracts/VaultContract";
 import { IPackage, IVaultModel, IWalletInfo, TOKEN } from "../../types";
-import stores from "../store";
+import stores, { AppThunkDispatch, RootState } from "../store";
 import { DEFAULT_MES } from "./account.reducers";
 
 export const setProvider = createAction<ethers.providers.Web3Provider>(
@@ -61,10 +61,12 @@ export const depositWithdrawAction = createAsyncThunk<string, IVaultModel>(
   }
 );
 
-export const buyICOAction = createAsyncThunk<string, IPackage>(
+export const buyICOAction = createAsyncThunk<string, IPackage, {
+  state: RootState
+}>(
   "account/buyIco",
-  async (pk) => {
-      const { web3Provider, walletInfo } = stores.getState().account;
+  async (pk, {getState}) => {
+      const {web3Provider, walletInfo } = getState().account;
       if (!web3Provider) throw new Error(DEFAULT_MES);
       const crowdSaleContract = new CrowSaleContract(web3Provider);
       if (pk.token === TOKEN.USDT) {
