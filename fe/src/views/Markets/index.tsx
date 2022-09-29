@@ -55,7 +55,7 @@ const MarketView = () => {
     <Flex flexDirection="column">
       <Text variant='notoSan' lineHeight="64px">Crypto Impetus Market</Text>
       {/* <Filter /> */}
-      <SimpleGrid columns={4} spacing="20px">
+      <SimpleGrid columns={{base: 1, lg: 4}} spacing="20px">
         {nfts.map((nft) => (
           <NftP2P
             item={nft}
