@@ -1,7 +1,7 @@
 import {ethers} from 'ethers';
 import BaseInterface from './BaseInterface';
 
-class Erc20 extends BaseInterface{ 
+class Erc20 extends BaseInterface { 
   constructor(provider: ethers.providers.Web3Provider, address: string, abi: ethers.ContractInterface) {
       super(provider, address, abi)  
   }

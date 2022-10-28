@@ -1,4 +1,6 @@
-import { TransactionResponse } from "@ethersproject/abstract-provider";
+import {
+  TransactionResponse,
+} from "@ethersproject/abstract-provider";
 import { BigNumber, ethers, Overrides } from "ethers";
 
 export default class BaseInterface {
@@ -16,24 +18,32 @@ export default class BaseInterface {
     this._provider = provider;
     this._contractAddress = address;
     this._abis = abi;
-    this._option = { gasLimit: 3000000 };
+    this._option = { gasLimit: 1000000 };
     this._contract = new ethers.Contract(address, abi, provider.getSigner());
   }
 
   _handleTransactionResponse = async(tx: TransactionResponse) => {
-    try {
       const recept = await tx.wait();
       return recept.transactionHash;
-    } catch(er: any) {
-      throw new Error(er?.reason || `${er}`);
-    }
+  }
+
+  _numberToEth = (amount: number) => {
+    return ethers.utils.parseEther(amount.toString());
   }
 
   _toNumber = (bigNumber: BigNumber) => {
     try {
       return bigNumber.toNumber();
-    } catch(er) {
+    } catch (er) {      
       return Number.parseFloat(ethers.utils.formatEther(bigNumber));
     }
+  };
+
+  _toEther = (bigNumber: BigNumber) => {
+    return Number.parseFloat(ethers.utils.formatEther(bigNumber));  
   }
+
+  _toWei = (amount: number) => {
+    return ethers.utils.parseUnits(amount.toString());
+  };
 }
