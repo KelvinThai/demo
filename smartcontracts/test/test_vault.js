@@ -37,7 +37,7 @@ describe("Floppy Contract", () => {
 
         [owner, alice, bob, carol] = await ethers.getSigners();
 
-        const Vault = await ethers.getContractFactory("Vault", owner);
+        const Vault = await ethers.getContractFactory("ImpetusVault", owner);
         vault = await Vault.deploy();
         const Token = await ethers.getContractFactory("Floppy", owner);
         token = await Token.deploy();
